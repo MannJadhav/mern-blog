@@ -3,12 +3,16 @@ import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 
 export default function Signup() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoding] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
-   setFormData({...formData, [e.target.id]: e.target.value.trim()});
+  setFormData({...formData, [e.target.id]: e.target.value.trim()});
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,28 +42,30 @@ export default function Signup() {
   };
   return (
     <div className='min-h-screen mt-20'>
-     <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:item-center gap-5 '>
+    <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:item-center gap-5 '>
        {/* left */}
-         <div className='flex-1'>
-           <Link to="/" 
-             className='font-bold dark:text-white text-4xl'>
-               <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
+        <div className='flex-1'>
+          <Link to="/" 
+            className='font-bold dark:text-white text-4xl'>
+              <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
                 IT Blog
               </span>
-           </Link>
-           <p className="text-sm mt-5 ">
+          </Link>
+          <p className="text-sm mt-5 ">
             This is the demo project. You can sign up with your email and password
             or with Google.
-           </p>
-         </div>
+          </p>
+        </div>
       {/*right*/}
-     <div className='flex-1'>
+    <div className='flex-1'>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
               <div>
                 <Label value='Your username' onChange={handleChange} />
                 <TextInput text='text' 
                 placeholder='Username'
                 id='username'
+                value={formData.username}
+                onChange={(e)=>setFormData({...formData,username:e.target.value})}
                 />
               </div>
               <div>
@@ -67,6 +73,8 @@ export default function Signup() {
                 <TextInput text='email' 
                 placeholder='name@company.com'
                 id='email'
+                value={formData.email}
+                onChange={(e)=>setFormData({...formData,email:e.target.value})}
                 />
               </div>
               <div>
@@ -74,6 +82,8 @@ export default function Signup() {
                 <TextInput text='password' 
                 placeholder='Password'
                 id='password' 
+                value={formData.password}
+                onChange={(e)=>setFormData({...formData,password:e.target.value})}
                 />
               </div>
               <Button gradientDuoTone= 'purpleToPink' type='submit' disabled={loading}>
@@ -102,6 +112,6 @@ export default function Signup() {
             }
           </div>
       </div>
-   </div>
+  </div>
   )
 }
